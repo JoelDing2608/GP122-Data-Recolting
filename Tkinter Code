@@ -1,0 +1,59 @@
+"""Projet_Python_Recolte de donnees_Ding_Joel_1PT2"""
+
+from tkinter import *
+from tkinter.ttk import Combobox
+
+fenetre = Tk()
+
+fenetre.geometry("400x300")
+
+label_NomPrenom = Label(fenetre, text="Nom et Prénom")
+label_NomPrenom.place(x=0, y=0)
+txt_NomPrenom = Entry(fenetre)
+txt_NomPrenom.place(x=100, y=0)
+
+label_Age = Label(fenetre, text="Age")
+label_Age.place(x=0, y=50)
+txt_Age = Entry(fenetre)
+txt_Age.place(x=100, y=50)
+
+label_Sex = Label(fenetre, text="Sex")
+label_Sex.place(x=0, y=100)
+retourSexe = StringVar()
+radiobutton_Sex1 = Radiobutton(fenetre, text="Masculin", variable=retourSexe, value="Masculin")
+radiobutton_Sex2 = Radiobutton(fenetre, text="Féminin", variable=retourSexe, value="Féminin")
+radiobutton_Sex1.place(x=100, y=100)
+radiobutton_Sex2.place(x=200, y=100)
+
+label_Continent = Label(fenetre, text="Continent")
+label_Continent.place(x=0, y=150)
+retour_Continent = StringVar()
+data=("Asie", "Afrique", "Amérique", "Europe")
+combobox_Continent = Combobox(fenetre, values=data)
+combobox_Continent.place(x=100, y=150)
+
+label_Interet = Label(fenetre, text="Centre d'interet")
+label_Interet.place(x=0, y=200)
+retour_art = StringVar()
+retour_science = StringVar()
+retour_litterature = StringVar()
+checkbutton_Art = Checkbutton(fenetre, text = "Art", variable = retour_art, onvalue="art,", offvalue="")
+checkbutton_Science = Checkbutton(fenetre, text = "Science", variable = retour_science, onvalue="science,", offvalue="")
+checkbutton_Litterature = Checkbutton(fenetre, text = "Litterature", variable = retour_litterature, onvalue="litterature,", offvalue="")
+checkbutton_Art.place(x=120, y=200)
+checkbutton_Science.place(x=200, y=200)
+checkbutton_Litterature.place(x=300, y=200)
+
+def formulaireEnvoye():
+    messagebox.showinfo("Statut de l'inscription", "Formulaire Envoyé")
+    
+def enregistrer_en_texte():
+    donnees = txt_NomPrenom.get() + "," + txt_Age.get() + "," + retourSexe.get() + "," + combobox_Continent.get() + "," + retour_art.get() + retour_science.get() + retour_litterature.get()  
+    with open("Données_Formulaire.txt", "a") as fichier_texte:
+        fichier_texte.write(donnees)
+        fichier_texte.write("\n")
+        
+B = Button(fenetre, text = " Submit ", command = lambda:[enregistrer_en_texte(), formulaireEnvoye()])
+B.place(x=150, y=250)
+
+fenetre.mainloop()
